@@ -1,0 +1,6 @@
+# clean base image containing only comfyui, comfy-cli and comfyui-manager
+FROM runpod/worker-comfyui:5.8.4-base
+
+# install custom nodes into comfyui
+RUN git clone https://github.com/Comfy-Org/Nvidia_RTX_Nodes_ComfyUI /comfyui/custom_nodes/Nvidia_RTX_Nodes_ComfyUI && cd /comfyui/custom_nodes/Nvidia_RTX_Nodes_ComfyUI && (git checkout f13f030c3173aeaa9aeb092177716b4300038814 2>/dev/null || (git fetch origin f13f030c3173aeaa9aeb092177716b4300038814 --depth=1 && git checkout f13f030c3173aeaa9aeb092177716b4300038814) || echo "WARN: commit f13f030c3173aeaa9aeb092177716b4300038814 unreachable in https://github.com/Comfy-Org/Nvidia_RTX_Nodes_ComfyUI, falling back to default branch HEAD")
+RUN git clone https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite /comfyui/custom_nodes/ComfyUI-VideoHelperSuite && cd /comfyui/custom_nodes/ComfyUI-VideoHelperSuite && (git checkout 993082e4f2473bf4acaf06f51e33877a7eb38960 2>/dev/null || (git fetch origin 993082e4f2473bf4acaf06f51e33877a7eb38960 --depth=1 && git checkout 993082e4f2473bf4acaf06f51e33877a7eb38960) || echo "WARN: commit 993082e4f2473bf4acaf06f51e33877a7eb38960 unreachable in https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite, falling back to default branch HEAD")
